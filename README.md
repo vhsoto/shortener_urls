@@ -1,24 +1,66 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby versión: 2.6.3
 
-Things you may want to cover:
+Rails versión: 6.0.3 
 
-* Ruby version
+Nota: Si clona este repositorio en su máquina reemplace lo siguiente:  
 
-* System dependencies
+ - BASE_URL: localhost
 
-* Configuration
+- PUERTO: puerto que use, por defecto Rails usa 3000
 
-* Database creation
+- HOST: dominio que desea buscar
 
-* Database initialization
+- URL_COMPLETA: Pasar la URL
 
-* How to run the test suite
+- url_corta: se encuentra en la respuesta de listar
 
-* Services (job queues, cache servers, search engines, etc.)
+# Generar URL corta
 
-* Deployment instructions
+-   método http usado: POST 
 
-* ...
+curl -d '{"url": "URL_COMPLETA"}' -H "Accept: application/json" -X POST "BSE_URL:PUERTO/v1/shorteners"  
+
+**EJEMPLO RESPUESTA**
+
+{
+
+  response: {
+
+    url_corta: "http:localhost:3000/v1/3cdc4f50"
+
+  }
+
+}
+
+# Listar detalle del dominio
+
+-   Método http usado: GET  
+
+curl -H "Accept: application/json" "BASE_URL/v1/shorteners?domain=HOST"  
+
+**EJEMPLO RESPUESTA**
+
+{
+
+"response": [
+
+{
+
+"url": "https://www.google.com",
+
+"url_corta": "http://localhost:3000/v1/3cdc4f50",
+
+"counter": 2,
+
+"ranking": 1
+
+}
+
+]
+
+}  
+
+# Visitar URL
+
+curl url_corta
